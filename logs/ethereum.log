@@ -1,0 +1,18 @@
+17:17:50.052 INFO [a.App]  Starting App on ragnar with PID 20076 (/home/y3om11/IdeaProjects/task-arpage/target/classes started by y3om11 in /home/y3om11/IdeaProjects/task-arpage)
+17:17:50.054 DEBUG [a.App]  Running with Spring Boot v2.1.6.RELEASE, Spring v5.1.8.RELEASE
+17:17:50.055 INFO [a.App]  No active profile set, falling back to default profiles: default
+17:17:51.269 WARN [i.u.w.jsr]  UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+17:17:51.281 DEBUG [i.u.session]  Setting default session timeout to 1800
+17:17:51.291 INFO [i.u.servlet]  Initializing Spring embedded WebApplicationContext
+17:17:51.312 DEBUG [i.u.session]  Registered session listener io.undertow.servlet.core.SessionListenerBridge@6e0cff20
+17:17:51.343 DEBUG [i.u.session]  Setting default session timeout to 1800
+17:17:52.172 DEBUG [i.undertow]  starting undertow server io.undertow.Undertow@56928e17
+17:17:52.177 INFO [o.xnio]  XNIO version 3.3.8.Final
+17:17:52.185 INFO [o.x.nio]  XNIO NIO Implementation Version 3.3.8.Final
+17:17:52.200 DEBUG [o.x.nio]  Started channel thread 'XNIO-1 I/O-2', selector sun.nio.ch.EPollSelectorImpl@5de87694
+17:17:52.200 DEBUG [o.x.nio]  Started channel thread 'XNIO-1 I/O-1', selector sun.nio.ch.EPollSelectorImpl@277c1a7
+17:17:52.200 DEBUG [o.x.nio]  Started channel thread 'XNIO-1 I/O-3', selector sun.nio.ch.EPollSelectorImpl@137188d7
+17:17:52.201 DEBUG [o.x.nio]  Started channel thread 'XNIO-1 I/O-4', selector sun.nio.ch.EPollSelectorImpl@48a2b9ee
+17:17:52.201 DEBUG [o.x.nio]  Started channel thread 'XNIO-1 Accept', selector sun.nio.ch.EPollSelectorImpl@40faef6c
+17:17:52.201 DEBUG [i.undertow]  Configuring listener with protocol HTTP for interface 0.0.0.0 and port 8085
+17:17:52.226 INFO [a.App]  Started App in 2.904 seconds (JVM running for 3.904)

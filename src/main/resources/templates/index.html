@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{css/bj.css}">
+</head>
+
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        </nav>
+
+        <div id="wrapper">
+            <div id="game">
+                <div id="alert" class="alert alert-error hide"><span></span></div>
+                <div id="dealer">
+                    <div id="dhand"></div>
+                </div>
+                <div id="player">
+                    <div id="phand"></div>
+                </div>
+                <div id="money">
+                    <span id="cash">Cash: $<span></span></span>
+                    <div id="bank">Winnings: $<span></span></div>
+                </div>
+            </div>
+            <div id="actions">
+                <button id="deal" class="btn">Deal!</button>
+                <button id="hit" class="btn" disabled>Hit</button>
+                <button id="stand" class="btn" disabled>Stand</button>
+                <button id="double" class="btn" disabled>Double Down</button>
+                <button id="split" class="btn" disabled>Split</button>
+                <button id="insurance" class="btn" disabled>Insurance</button>
+                <strong>Wager:</strong> $<input id="wager" class="input-small" type="text" />
+            </div>
+        </div>
+        <div id="myModal" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Out of cash!</h3>
+            </div>
+            <div class="modal-body">
+                <p>You ran out of cash, but you spot an ATM nearby. Would you like to withdraw another $1,000 and try your luck again?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="cancel" class="btn">Nah</a>
+                <a href="#" id="newGame" class="btn btn-primary">Yes!</a>
+            </div>
+        </div>
+
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+        </footer>
+        <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<script src="/js/bj.js"></script>
+
+</body>
+
+</html>
