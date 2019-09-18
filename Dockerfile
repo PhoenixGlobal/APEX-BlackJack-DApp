@@ -14,7 +14,8 @@ RUN     apt-get update -y && \
 RUN     git clone https://github.com/yuomii/bj-dapp.git && \
         cd bj-dapp && \
         mvn -U clean install && \
-        cp target/bj-dapp-1.0-SNAPSHOT.jar /dapp/app.jar
+        cp target/bj-dapp-1.0-SNAPSHOT.jar /dapp/app.jar && \
+        cp BlackJackAbi.json /dapp/BlackJackAbi.json
 
 RUN echo "java -jar /dapp/app.jar ${RPC_URL} ${CONTRACT}" > entrypoint.sh && \
     chmod +x entrypoint.sh
