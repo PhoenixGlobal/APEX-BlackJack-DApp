@@ -4,73 +4,181 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+    <title>APEX BlackJack DApp</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
     <!-- plugins:css -->
     <link rel="stylesheet" th:href="@{css/bj.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
-<div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
+<div class="container-scroller d-flex align-items-center" style="background: #222">
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        </nav>
-
-        <div id="wrapper">
-            <div id="game">
-                <div id="alert" class="alert alert-error hide"><span></span></div>
-                <div id="dealer">
-                    <div id="dhand"></div>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="d-flex justify-content-center align-items-center container ">
+        <div class="row text-center">
+            <form action="/game" method="post" class="form-inline justify-content-center">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" th:text="'Your Balance: ' + ${balancePlayer}"></div>
+                        </div>
+                        <input type="number" id="amount" name="amount" min="1" th:max="${balancePlayer}">
+                        <span class="input-group-btn">
+                            <button th:disabled="${msg.contains('Player turn')}" type="submit" name="action" value="cashIn" class="btn btn-danger btn-block"> Cash in >> </button>
+                        </span>
+                        <span class="input-group-btn" style="margin-left: 15px;">
+                            <button th:disabled="${msg.contains('Player turn')}" type="submit" name="action" value="cashOut" class="btn btn-danger btn-block"> << Cash out </button>
+                        </span>
+                        <div class="input-group-append">
+                            <div class="input-group-text" th:text="'Contract Balance: ' + ${balanceContract}"></div>
+                        </div>
+                    </div>
                 </div>
-                <div id="player">
-                    <div id="phand"></div>
+            </form>
+        </div>
+        </div>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="jumbotron jumbotron-fluid d-flex align-items-center" id="game">
+            <div class="container">
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-1"></div>
+                    <div class="col-1"></div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.dealerCard1}">
+                    </div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.dealerCard2}">
+                    </div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.dealerCardNext1}">
+                    </div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.dealerCardNext2}">
+                    </div>
                 </div>
-                <div id="money">
-                    <span id="cash">Cash: $<span></span></span>
-                    <div id="bank">Winnings: $<span></span></div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
                 </div>
-            </div>
-            <div id="actions">
-                <button id="deal" class="btn">Deal!</button>
-                <button id="hit" class="btn" disabled>Hit</button>
-                <button id="stand" class="btn" disabled>Stand</button>
-                <button id="double" class="btn" disabled>Double Down</button>
-                <button id="split" class="btn" disabled>Split</button>
-                <button id="insurance" class="btn" disabled>Insurance</button>
-                <strong>Wager:</strong> $<input id="wager" class="input-small" type="text" />
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-1"></div>
+                    <div class="col-1"></div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.playerCard1}">
+                    </div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.playerCard2}">
+                    </div>
+                    <div class="col-1">
+                        <img class="img-fluid" th:src="${session.playerCardNext}">
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-12"><p></p></div>
+                </div>
             </div>
         </div>
-        <div id="myModal" class="modal hide fade">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Out of cash!</h3>
-            </div>
-            <div class="modal-body">
-                <p>You ran out of cash, but you spot an ATM nearby. Would you like to withdraw another $1,000 and try your luck again?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" id="cancel" class="btn">Nah</a>
-                <a href="#" id="newGame" class="btn btn-primary">Yes!</a>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="d-flex justify-content-center align-items-center container ">
+            <div class="row text-center">
+                <h5 th:text="${msg}" style="color: white"></h5>
             </div>
         </div>
-
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        <div class="row">
+            <p></p>
+        </div>
+        <form action="/game" class="form-inline justify-content-center" method="post">
         <footer class="footer">
+            <div class="d-flex justify-content-center align-items-center container ">
+                <div class="row text-center">
+                    <form action="/game" method="post" class="form-inline justify-content-center">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-btn" style="margin-left: 15px;">
+                                    <button th:disabled="${msg.contains('Pay contract')}" type="submit" name="action" value="showCards" class="btn btn-danger btn-block">Show Cards</button>
+                                </span>
+                                <span class="input-group-btn" style="margin-left: 15px;">
+                                    <button th:disabled="not ${msg.contains('Player turn')}" type="submit" name="action" value="hit" class="btn btn-danger btn-block">Hit</button>
+                                </span>
+                                <span class="input-group-btn" style="margin-left: 15px;">
+                                    <button th:disabled="not ${msg.contains('Player turn')}" type="submit" name="action" value="stand" class="btn btn-danger btn-block">Stand</button>
+                                </span>
+                                <div class="input-group" style="margin-left: 15px;">
+                                    <input type="number" id="bet" name="bet" min="1" th:max="${balancePlayer}">
+                                    <span class="input-group-btn">
+                                        <button th:disabled="not ${msg.contains('Place bet')}" type="submit" name="action" value="placeBet" class="btn btn-danger btn-block">Bet</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </footer>
-        <!-- partial -->
-        </div>
+        </form>
         <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
 
-<script src="/js/bj.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 

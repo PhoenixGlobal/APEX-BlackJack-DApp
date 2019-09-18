@@ -4,12 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.arpage</groupId>
-    <artifactId>task</artifactId>
+    <groupId>com.apex</groupId>
+    <artifactId>bj-dapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>arpage-task</name>
-    <description>Test task application for Arpage</description>
+    <name>bj-dapp</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,10 +19,27 @@
 
     <properties>
         <project.encoding>UTF-8</project.encoding>
-        <powermock.version>2.0.2</powermock.version>
+        <nitrite.version>3.2.0</nitrite.version>
+        <apex.sdk.version>870ae70216328b8531f2856740b49aff3f386f3e</apex.sdk.version>
+        <jackson.version>2.9.8</jackson.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>eth.io</id>
+            <url>https://dl.bintray.com/ethereum/maven</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -44,17 +60,36 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
+            <groupId>com.github.APEX-Network</groupId>
+            <artifactId>APEX-Java-SDK</artifactId>
+            <version>${apex.sdk.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.ethereum</groupId>
+            <artifactId>ethereumj</artifactId>
+            <version>1.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ethereum</groupId>
+            <artifactId>leveldbjni-all</artifactId>
+            <version>1.18.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ethereum</groupId>
+            <artifactId>rocksdbjni</artifactId>
+            <version>5.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ethereum</groupId>
+            <artifactId>solcJ-all</artifactId>
+            <version>0.4.25</version>
+        </dependency>
+
     </dependencies>
 
     <build>

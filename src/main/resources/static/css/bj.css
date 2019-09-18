@@ -1,0 +1,150 @@
+div[id*="pcard"] .popover { left: -95px !important; }
+div[id*="dcard"] .popover { left: -105px !important; }
+
+#wrapper {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+h3 {
+    margin: 5px 0;
+    text-align: center;
+}
+
+#game {
+    background: transparent url('https://www.clowerweb.com/cors/blackjack/table.png') 0 0 no-repeat;
+    border-radius: 5px;
+    color: #333;
+    font: 14px/17px Helvetica, Arial, Verdana, sans-serif;
+    height: 550px;
+    margin: 0 auto;
+    position: relative;
+    width: 1000px;
+}
+
+div#dscore {
+    position: absolute;
+    bottom: 30px;
+}
+
+div#pscore {
+    position: absolute;
+    bottom: 15px;
+}
+
+div#phand, div#dhand {
+    font-weight: 700;
+    /*left: 50%;*/
+    position: absolute;
+    top: -122px;
+    white-space: nowrap;
+    width: 1000px;
+}
+
+div#phand { }
+
+div#dhand { }
+
+div[class*="card"] {
+    background: #FFF;
+    border: 6px solid #FFF;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #000;
+    display: inline-block;
+    height: 106px;
+    margin: 0 5px;
+    position: absolute;
+    right: 0;
+    width: 79px;
+}
+
+.down {
+    background: #B20000 url('https://www.clowerweb.com/cors/blackjack/card.png') center center no-repeat !important;
+}
+
+span.pos-0 {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+span.pos-1 {
+    bottom: 0;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    position: absolute;
+    right: 0;
+    transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+
+span.rank {
+    font-size: 18px;
+}
+
+span.suit {
+    font-size: 22px;
+}
+
+.black {
+    color: #000;
+}
+
+.red {
+    color: #F00;
+}
+
+#result {
+    position: absolute;
+    bottom: 0;
+}
+
+#actions {
+    margin: 15px 0 0 0;
+    text-align: center;
+}
+
+input#wager { margin-left: 5px; position: relative; top: 4px }
+
+#money, #money:before {
+    border-radius: 5px;
+    bottom: 0;
+    height: 55px;
+    padding: 7px;
+    position: absolute;
+    right: 0;
+    width: 250px;
+}
+
+#money {
+    border: 2px solid #FFC926;
+}
+
+#money:before {
+    background: #333;
+    content: '';
+    opacity: 0.8;
+}
+
+#cash, #bank {
+    color: #FFF;
+    font: 700 18px/20px Helvetica, Arial, Verdana, sans-serif;
+    margin: 12px 0;
+    position: relative;
+    text-shadow: 1px 1px #000;
+    z-index: 1;
+}
+
+#alert {
+    margin: 0 auto;
+    opacity: 0.95;
+    position: relative;
+    text-align: center;
+    top: 34.5%;
+    width: 500px;
+    z-index: 0;
+}
+
+.gradient {
+    background: repeating-linear-gradient(to top,black, dodgerblue);
+}
