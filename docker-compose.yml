@@ -9,6 +9,8 @@ services:
         CONTRACT: "APBDTkQUxsorvSBfWZG9hCkiv1Cqc5P6vXH"
     image: dapp-container
     container_name: dapp-container
+    ports:
+      - 8085:8085
     networks:
       dapp_net:
         ipv4_address: 172.29.1.1
