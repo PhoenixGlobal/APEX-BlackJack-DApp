@@ -273,18 +273,14 @@ public class MainController {
         try {
             final GetAccountCmd cmd = new GetAccountCmd(address);
             final String responseString = caller.postRequest(App.getRpcUrl(), cmd);
-            System.out.println(responseString);
             final Map<String, Object> response = parser.parseMap(responseString);
-            System.out.println(response.get("result"));
             final LinkedHashMap<String, Object> resultMap = (LinkedHashMap<String, Object>) response.get("result");
-            System.out.println(resultMap);
             if(resultMap.get("balance") != null)
             accMap.put("balance", String.valueOf(resultMap.get("balance")));
             if(resultMap.get("nextNonce") != null)
             accMap.put("nonce", String.valueOf(resultMap.get("nextNonce")));
             return accMap;
         } catch (Exception e){
-            System.out.println(e.getMessage());
             return accMap;
         }
     }
