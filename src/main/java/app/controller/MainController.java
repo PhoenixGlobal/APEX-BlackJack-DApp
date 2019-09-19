@@ -270,6 +270,7 @@ public class MainController {
         HashMap<String, String> accMap = new HashMap<>();
         accMap.put("balance", "0");
         accMap.put("nonce", "0");
+        System.out.println(App.getRpcUrl());
         try {
             final GetAccountCmd cmd = new GetAccountCmd(address);
             final String responseString = caller.postRequest(App.getRpcUrl(), cmd);
