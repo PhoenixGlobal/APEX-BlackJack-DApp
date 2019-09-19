@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+
+  dapp-container:
+    build:
+      context: .
+      args:
+        RPC_URL: "http://172.28.1.1:8081"
+        CONTRACT: "APBDTkQUxsorvSBfWZG9hCkiv1Cqc5P6vXH"
+    image: dapp-container
+    container_name: dapp-container
+    networks:
+      dapp_net:
+        ipv4_address: 172.29.1.1
+
+networks:
+  dapp_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.0.0/16
