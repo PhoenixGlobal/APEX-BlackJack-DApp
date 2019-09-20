@@ -208,7 +208,7 @@ public class MainController {
         try {
             byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(4).fingerprintSignature();
             String txId = executeTransaction(TransactionType.CALL, 0, payContractSignature);
-            Thread.sleep(1000L);
+            Thread.sleep(2000L);
             return getTransactionOutput(txId);
         } catch (InterruptedException e){
             return "";
@@ -219,7 +219,7 @@ public class MainController {
         try {
             byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
             String txId = executeTransaction(TransactionType.CALL, amount, payContractSignature);
-            Thread.sleep(1000L);
+            Thread.sleep(2000L);
             return getTransactionOutput(txId);
         } catch (InterruptedException e){
             return "";
