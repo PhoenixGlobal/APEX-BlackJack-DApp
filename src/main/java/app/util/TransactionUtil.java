@@ -37,42 +37,23 @@ public class TransactionUtil {
     @Autowired
     private CryptoService crypto;
 
-    public HashMap<String, Object> executeMethod(ECPrivateKey privateKey, long nonce , int abiIndex, double amount) {
-        try {
-            final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
-            final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, payContractSignature);
-            final String txId = (String) resultMap.get("txId");
-            log.info(txId);
-            final GetContractByIdCmd cmd = new GetContractByIdCmd(txId);
-            final String response = caller.postRequest(App.getRpcUrl(), cmd);
-            log.info(response);
-            return writer.getObjectFromString(ExecResult.class, response).getResult();
-        } catch (Exception e){
-            log.error("In executeMethod(): " + e.getMessage());
-            return new HashMap<>();
-        }
+    public String executeMethod(ECPrivateKey privateKey, long nonce , int abiIndex, double amount) {
+        final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
+        final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, payContractSignature);
+        return (String) resultMap.get("txId");
     }
 
-    public HashMap<String, Object> executeMethodWithParameters(ECPrivateKey privateKey, long nonce , int abiIndex, double amount, double param) {
-        try {
-            Abi.Function c = (Abi.Function) Abi.fromJson(App.getContractAbi()).get(abiIndex);
-            byte [] params = c.encode(new FixedNumber(param).getValue());
-            final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, params);
-            final String txId = (String) resultMap.get("txId");
-            final GetContractByIdCmd cmd = new GetContractByIdCmd(txId);
-            final String response = caller.postRequest(App.getRpcUrl(), cmd);
-            return writer.getObjectFromString(ExecResult.class, response).getResult();
-        } catch (Exception e){
-            log.error(e.getMessage());
-            return new HashMap<>();
-        }
+    public String executeMethodWithParameters(ECPrivateKey privateKey, long nonce , int abiIndex, double amount, double param) {
+        final Abi.Function c = (Abi.Function) Abi.fromJson(App.getContractAbi()).get(abiIndex);
+        final byte [] params = c.encode(new FixedNumber(param).getValue());
+        final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, params);
+        return (String) resultMap.get("txId");
     }
 
     public HashMap<String, Object> getAccount(String address){
         try{
             final GetAccountCmd cmd = new GetAccountCmd(address);
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
-            log.info(response);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
             log.error("In getAccountBalance(): " + e.getMessage());
@@ -101,6 +82,12 @@ public class TransactionUtil {
             log.error(e.getMessage());
             return new HashMap<>();
         }
+    }
+
+    public  HashMap<String, Object> getTxById(String txId) throws Exception {
+        final GetContractByIdCmd cmd = new GetContractByIdCmd(txId);
+        final String response = caller.postRequest(App.getRpcUrl(), cmd);
+        return writer.getObjectFromString(ExecResult.class, response).getResult();
     }
 
     public long getAccountNonce(String address) {

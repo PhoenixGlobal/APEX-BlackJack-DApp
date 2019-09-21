@@ -46,10 +46,12 @@ public class MainController {
         model.addAttribute("balancePlayer", transactionUtil.getAccountBalance(address));
         model.addAttribute("balanceContract", 0);
 
-        HashMap<String, Object> displayTableMap =  transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
+        final String tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
+        HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
+        log.info(displayTableMap.toString());
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
             Thread.sleep(100L);
-            displayTableMap =  transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0L);
+            displayTableMap = transactionUtil.getTxById(tableTxId);
         }
         String tableEncoded = (String) displayTableMap.get("output");
         String msg = "Welcome to APEX BlackJack";
