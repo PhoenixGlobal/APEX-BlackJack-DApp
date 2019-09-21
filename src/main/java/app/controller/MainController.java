@@ -51,7 +51,7 @@ public class MainController {
             Thread.sleep(1000L);
             log.info("Table not there yet");
             log.info(displayTableMap.toString());
-            tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
+            log.info(tableTxId);
             displayTableMap = transactionUtil.getTxById(tableTxId);
         }
         String tableEncoded = (String) displayTableMap.get("output");
