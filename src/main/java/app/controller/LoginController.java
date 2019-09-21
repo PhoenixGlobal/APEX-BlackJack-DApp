@@ -50,6 +50,13 @@ public class LoginController {
             transactionUtil.executeMethod(privateKey, address, 6, 0L);
             httpSession.setAttribute("address", address);
             httpSession.setAttribute("privateKey", privateKey);
+            httpSession.setAttribute("playerCard1", null);
+            httpSession.setAttribute("playerCard2", null);
+            httpSession.setAttribute("playerCardNext", null);
+            httpSession.setAttribute("dealerCard1", null);
+            httpSession.setAttribute("dealerCard2", null);
+            httpSession.setAttribute("dealerCardNext1", null);
+            httpSession.setAttribute("dealerCardNext2", null);
             httpSession.setMaxInactiveInterval(SESSION_EXP_SEC);
             return "redirect:/game";
         } catch (Exception e){
