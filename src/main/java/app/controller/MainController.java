@@ -125,7 +125,7 @@ public class MainController {
 
             int idDCN1 = Integer.valueOf(tableValues.get(9), 16);
             ArrayList<String> DCN1List = cardMap.get(idDCN1);
-            if(idDCN1 == 0) {
+            if(idDCN1 == 0 || httpSession.getAttribute("dealerCardNext1") == null) {
                 httpSession.setAttribute("dealerCardNext1", "svg-cards/back.svg");
             } else if(httpSession.getAttribute("dealerCardNext1").equals("svg-cards/back.svg")){
                 int ran = new Random().nextInt(DCN1List.size());
@@ -136,7 +136,7 @@ public class MainController {
 
             int idDCN2 = Integer.valueOf(tableValues.get(10), 16);
             ArrayList<String> DCN2List = cardMap.get(idDCN2);
-            if(idDCN2 == 0) {
+            if(idDCN2 == 0 || httpSession.getAttribute("dealerCardNext2") == null) {
                 httpSession.setAttribute("dealerCardNext2", "svg-cards/back.svg");
             } else if(httpSession.getAttribute("dealerCardNext2").equals("svg-cards/back.svg")){
                 int ran = new Random().nextInt(DCN2List.size());
@@ -147,7 +147,6 @@ public class MainController {
 
             model.addAttribute("balanceContract", new BigInteger(tableValues.get(12), 16)
                     .divide(BigDecimal.valueOf(1000000000000000000L).toBigInteger()));
-
             httpSession.setAttribute("cardMap", cardMap);
         } catch (IndexOutOfBoundsException e){
             log.error(e.getMessage());
