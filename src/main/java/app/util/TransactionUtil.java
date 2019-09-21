@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.interfaces.ECPrivateKey;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
@@ -109,6 +110,34 @@ public class TransactionUtil {
         // removes non-printable characters from Unicode
         text = text.replaceAll("\\p{C}", "");
         return text.trim();
+    }
+
+    public HashMap<Integer, ArrayList<String>> getCardMap(){
+        HashMap<Integer, ArrayList<String>> map = new HashMap<>();
+        for(int i = 1; i < 14; i++){
+            ArrayList<String> list;
+            if(map.get(i) == null){
+                list = new ArrayList<>();
+            } else {
+                list = map.get(i);
+            }
+            list.add("svg-cards/"+i+"c.svg");
+            list.add("svg-cards/"+i+"d.svg");
+            list.add("svg-cards/"+i+"h.svg");
+            list.add("svg-cards/"+i+"s.svg");
+            if(i >= 10){
+                map.put(10, list);
+            } else {
+                map.put(i, list);
+            }
+        }
+        ArrayList<String> listAce = new ArrayList<>();
+        listAce.add("svg-cards/1c.svg");
+        listAce.add("svg-cards/1d.svg");
+        listAce.add("svg-cards/1h.svg");
+        listAce.add("svg-cards/1s.svg");
+        map.put(11, listAce);
+        return map;
     }
 
 }

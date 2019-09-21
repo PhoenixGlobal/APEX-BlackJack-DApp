@@ -57,6 +57,7 @@ public class LoginController {
             httpSession.setAttribute("dealerCard2", null);
             httpSession.setAttribute("dealerCardNext1", null);
             httpSession.setAttribute("dealerCardNext2", null);
+            httpSession.setAttribute("cardMap", transactionUtil.getCardMap());
             httpSession.setMaxInactiveInterval(SESSION_EXP_SEC);
             return "redirect:/game";
         } catch (Exception e){

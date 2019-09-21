@@ -37,7 +37,7 @@ public class MainController {
 
         HashMap<Integer,  ArrayList<String>> cardMap = (HashMap<Integer,  ArrayList<String>>) httpSession.getAttribute("cardMap");
         if(cardMap == null || cardMap.isEmpty()) {
-            cardMap = getCardMap();
+            cardMap = transactionUtil.getCardMap();
         }
 
         model.addAttribute("addressPlayer", address);
@@ -198,7 +198,7 @@ public class MainController {
         httpSession.setAttribute("dealerCard2", null);
         httpSession.setAttribute("dealerCardNext1", null);
         httpSession.setAttribute("dealerCardNext2", null);
-        httpSession.setAttribute("cardMap", getCardMap());
+        httpSession.setAttribute("cardMap", transactionUtil.getCardMap());
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethodWithParameters(privateKey, address, 5, 0, bet);
@@ -208,34 +208,6 @@ public class MainController {
     @PostMapping(params = "action=showCards")
     public String showCards(){
         return "redirect:/game";
-    }
-
-    private HashMap<Integer, ArrayList<String>> getCardMap(){
-        HashMap<Integer, ArrayList<String>> map = new HashMap<>();
-        for(int i = 1; i < 14; i++){
-            ArrayList<String> list;
-            if(map.get(i) == null){
-                list = new ArrayList<>();
-            } else {
-                list = map.get(i);
-            }
-            list.add("svg-cards/"+i+"c.svg");
-            list.add("svg-cards/"+i+"d.svg");
-            list.add("svg-cards/"+i+"h.svg");
-            list.add("svg-cards/"+i+"s.svg");
-            if(i >= 10){
-                map.put(10, list);
-            } else {
-                map.put(i, list);
-            }
-        }
-        ArrayList<String> listAce = new ArrayList<>();
-        listAce.add("svg-cards/1c.svg");
-        listAce.add("svg-cards/1d.svg");
-        listAce.add("svg-cards/1h.svg");
-        listAce.add("svg-cards/1s.svg");
-        map.put(11, listAce);
-        return map;
     }
 
 }
