@@ -13,6 +13,9 @@ import message.transaction.TransactionType;
 import message.util.GenericJacksonWriter;
 import message.util.RequestCallerService;
 import org.ethereum.solidity.Abi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -20,11 +23,19 @@ import java.security.interfaces.ECPrivateKey;
 import java.time.Instant;
 import java.util.HashMap;
 
+@Service
 public class TransactionUtil {
 
-    private GenericJacksonWriter writer = new GenericJacksonWriter();
-    private RequestCallerService caller = new RequestCallerService();
-    private CryptoService crypto = new CryptoService();
+    private Logger log = LoggerFactory.getLogger(TransactionUtil.class);
+
+    @Autowired
+    private GenericJacksonWriter writer;
+
+    @Autowired
+    private RequestCallerService caller;
+
+    @Autowired
+    private CryptoService crypto;
 
     public HashMap<String, Object> executeMethod(ECPrivateKey privateKey, long nonce , int abiIndex, double amount) {
         try {
@@ -35,6 +46,7 @@ public class TransactionUtil {
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
+            log.error(e.getMessage());
             return new HashMap<>();
         }
     }
@@ -49,6 +61,7 @@ public class TransactionUtil {
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
+            log.error(e.getMessage());
             return new HashMap<>();
         }
     }
@@ -59,6 +72,7 @@ public class TransactionUtil {
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
+            log.error(e.getMessage());
             return new HashMap<>();
         }
     }
@@ -81,6 +95,7 @@ public class TransactionUtil {
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
+            log.error(e.getMessage());
             return new HashMap<>();
         }
     }
