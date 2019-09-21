@@ -191,10 +191,22 @@ public class MainController {
 
     @PostMapping(params = "action=placeBet")
     public String placeBet(@RequestParam("bet") double bet) {
+        httpSession.setAttribute("playerCard1", null);
+        httpSession.setAttribute("playerCard2", null);
+        httpSession.setAttribute("playerCardNext", null);
+        httpSession.setAttribute("dealerCard1", null);
+        httpSession.setAttribute("dealerCard2", null);
+        httpSession.setAttribute("dealerCardNext1", null);
+        httpSession.setAttribute("dealerCardNext2", null);
         httpSession.setAttribute("cardMap", getCardMap());
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethodWithParameters(privateKey, address, 5, 0, bet);
+        return "redirect:/game";
+    }
+
+    @PostMapping(params = "action=showCards")
+    public String showCards(){
         return "redirect:/game";
     }
 
