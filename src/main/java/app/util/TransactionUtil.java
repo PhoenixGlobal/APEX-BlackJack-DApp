@@ -37,17 +37,27 @@ public class TransactionUtil {
     @Autowired
     private CryptoService crypto;
 
-    public String executeMethod(ECPrivateKey privateKey, long nonce , int abiIndex, double amount) {
+    public String executeMethod(ECPrivateKey privateKey, String address , int abiIndex, double amount) {
         final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
-        final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, payContractSignature);
-        return (String) resultMap.get("txId");
+        final ExecResult execResult = executeTransaction(privateKey, address, TransactionType.CALL, amount, payContractSignature);
+        return (String) execResult.getResult().get("txId");
     }
 
-    public String executeMethodWithParameters(ECPrivateKey privateKey, long nonce , int abiIndex, double amount, double param) {
+    public String executeMethodRetryOnFail(ECPrivateKey privateKey, String address , int abiIndex, double amount) throws InterruptedException {
+        final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
+        final ExecResult execResult = executeTransaction(privateKey, address, TransactionType.CALL, amount, payContractSignature);
+        if(!execResult.isSucceed()) {
+            Thread.sleep(200L);
+            executeMethodRetryOnFail(privateKey, address, abiIndex, amount);
+        }
+        return (String) execResult.getResult().get("txId");
+    }
+
+    public String executeMethodWithParameters(ECPrivateKey privateKey, String address , int abiIndex, double amount, double param) {
         final Abi.Function c = (Abi.Function) Abi.fromJson(App.getContractAbi()).get(abiIndex);
         final byte [] params = c.encode(new FixedNumber(param).getValue());
-        final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, params);
-        return (String) resultMap.get("txId");
+        final ExecResult execResult = executeTransaction(privateKey, address, TransactionType.CALL, amount, params);
+        return (String) execResult.getResult().get("txId");
     }
 
     public HashMap<String, Object> getAccount(String address){
@@ -61,14 +71,14 @@ public class TransactionUtil {
         }
     }
 
-    public HashMap<String, Object> executeTransaction(ECPrivateKey privateKey, long nonce, byte txType, double amount, byte [] data) {
+    public ExecResult executeTransaction(ECPrivateKey privateKey, String address, byte txType, double amount, byte [] data) {
         try {
             final Transaction tx = Transaction.builder()
                     .txType(txType)
                     .fromPubKeyHash(CPXKey.getScriptHash(privateKey))
                     .toPubKeyHash(CPXKey.getScriptHashFromCPXAddress(App.getGameAddress()))
                     .amount(new FixedNumber(amount))
-                    .nonce(nonce)
+                    .nonce(getAccountNonce(address))
                     .data(data)
                     .gasPrice(new FixedNumber(0.0000000001))
                     .gasLimit(BigInteger.valueOf(300000L))
@@ -77,10 +87,10 @@ public class TransactionUtil {
                     .build();
             final SendRawTransactionCmd cmd = new SendRawTransactionCmd(tx.getBytes(crypto, privateKey));
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
-            return writer.getObjectFromString(ExecResult.class, response).getResult();
+            return writer.getObjectFromString(ExecResult.class, response);
         } catch (Exception e){
             log.error(e.getMessage());
-            return new HashMap<>();
+            return new ExecResult(false, 0, "", new HashMap<>());
         }
     }
 

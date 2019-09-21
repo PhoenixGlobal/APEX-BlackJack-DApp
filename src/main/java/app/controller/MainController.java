@@ -45,7 +45,7 @@ public class MainController {
         model.addAttribute("balancePlayer", transactionUtil.getAccountBalance(address));
         model.addAttribute("balanceContract", 0);
 
-        String tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
+        String tableTxId = transactionUtil.executeMethodRetryOnFail(privateKey, address, 10, 0);
         HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
             Thread.sleep(1000L);
@@ -163,7 +163,7 @@ public class MainController {
     public String cashIn(@RequestParam("amount") double amount) {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 4, amount);
+        transactionUtil.executeMethod(privateKey, address, 4, amount);
         log.info("Cash In called");
         return "redirect:/game";
     }
@@ -172,7 +172,7 @@ public class MainController {
     public String cashOut() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 0, 0);
+        transactionUtil.executeMethod(privateKey, address, 0, 0);
         return "redirect:/game";
     }
 
@@ -180,7 +180,7 @@ public class MainController {
     public String hit() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 2, 0);
+        transactionUtil.executeMethod(privateKey, address, 2, 0);
         return "redirect:/game";
     }
 
@@ -188,7 +188,7 @@ public class MainController {
     public String stand() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address),8, 0);
+        transactionUtil.executeMethod(privateKey, address,8, 0);
         return "redirect:/game";
     }
 
@@ -197,7 +197,7 @@ public class MainController {
         httpSession.setAttribute("cardMap", getCardMap());
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethodWithParameters(privateKey, transactionUtil.getAccountNonce(address), 5, 0, bet);
+        transactionUtil.executeMethodWithParameters(privateKey, address, 5, 0, bet);
         return "redirect:/game";
     }
 
