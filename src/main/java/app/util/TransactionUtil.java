@@ -53,7 +53,6 @@ public class TransactionUtil {
     public HashMap<String, Object> getAccount(String address){
         try{
             final GetAccountCmd cmd = new GetAccountCmd(address);
-            log.info(caller.toString());
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
