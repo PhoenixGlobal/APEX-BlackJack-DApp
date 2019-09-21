@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.util.TransactionUtil;
 import crypto.CPXKey;
 import crypto.CryptoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.interfaces.ECPrivateKey;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/")
@@ -24,6 +26,9 @@ public class LoginController {
     @Autowired
     private CryptoService cryptoService;
 
+    @Autowired
+    private TransactionUtil transactionUtil;
+
     @GetMapping
     public String startPageGet() {
         return "login";
@@ -32,18 +37,31 @@ public class LoginController {
     @PostMapping(value = "login")
     public String startPagePost(@RequestParam(value = "privateKey") String privateKeyString) {
         try {
-            final ECPrivateKey privKey;
+            final ECPrivateKey privateKey;
             if(privateKeyString.startsWith("K") || privateKeyString.startsWith("L")) {
-                privKey = cryptoService.getECPrivateKeyFromRawString(CPXKey.getRawFromWIF(privateKeyString));
+                privateKey = cryptoService.getECPrivateKeyFromRawString(CPXKey.getRawFromWIF(privateKeyString));
             } else {
-                privKey = cryptoService.getECPrivateKeyFromRawString(privateKeyString);
+                privateKey = cryptoService.getECPrivateKeyFromRawString(privateKeyString);
             }
-            httpSession.setAttribute("address", CPXKey.getPublicAddressCPX(privKey));
-            httpSession.setAttribute("privateKey", privKey);
+            final String address = CPXKey.getPublicAddressCPX(privateKey);
+            transactionUtil.executeMethod(privateKey, getAccountNonce(address), 6, 0);
+            Thread.sleep(2000L);
+            httpSession.setAttribute("address", address);
+            httpSession.setAttribute("privateKey", privateKey);
             httpSession.setMaxInactiveInterval(SESSION_EXP_SEC);
             return "redirect:/game";
         } catch (Exception e){
             return "redirect:/";
         }
     }
+
+    private long getAccountNonce(String address) throws InterruptedException {
+        HashMap<String, Object> accountMap = transactionUtil.getAccountBalance(address);
+        while (accountMap.isEmpty()){
+            Thread.sleep(100L);
+            accountMap = transactionUtil.getAccountBalance(address);
+        }
+        return (long) accountMap.get("nonce");
+    }
+
 }

@@ -20,7 +20,7 @@
     <properties>
         <project.encoding>UTF-8</project.encoding>
         <nitrite.version>3.2.0</nitrite.version>
-        <apex.sdk.version>870ae70216328b8531f2856740b49aff3f386f3e</apex.sdk.version>
+        <apex.sdk.version>91f87c9ada9a5d65d6ef81db8c840ead7e948545</apex.sdk.version>
         <jackson.version>2.9.8</jackson.version>
     </properties>
 
