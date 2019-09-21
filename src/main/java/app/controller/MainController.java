@@ -50,6 +50,7 @@ public class MainController {
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
             Thread.sleep(1000L);
             log.info("Table not there yet");
+            log.info((String) displayTableMap.get("error"));
             displayTableMap = transactionUtil.getTxById(tableTxId);
         }
         String tableEncoded = (String) displayTableMap.get("output");
