@@ -48,7 +48,7 @@ public class TransactionUtil {
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error("In executeMethod(): " + e.getMessage());
             return new HashMap<>();
         }
     }
@@ -74,7 +74,7 @@ public class TransactionUtil {
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error("In getAccountBalance(): " + e.getMessage());
             return new HashMap<>();
         }
     }
