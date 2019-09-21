@@ -162,7 +162,7 @@ public class MainController {
     }
 
     @PostMapping(params = "action=cashIn")
-    public String cashIn(@RequestParam("amount") double amount) throws InterruptedException {
+    public String cashIn(@RequestParam("amount") double amount) {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethod(privateKey, getAccountNonce(address), 4, amount);
@@ -170,7 +170,7 @@ public class MainController {
     }
 
     @PostMapping(params = "action=cashOut")
-    public String cashOut() throws InterruptedException {
+    public String cashOut() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethod(privateKey, getAccountNonce(address), 0, 0);
@@ -178,7 +178,7 @@ public class MainController {
     }
 
     @PostMapping(params = "action=hit")
-    public String hit() throws InterruptedException {
+    public String hit() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethod(privateKey, getAccountNonce(address), 2, 0);
@@ -186,7 +186,7 @@ public class MainController {
     }
 
     @PostMapping(params = "action=stand")
-    public String stand() throws InterruptedException {
+    public String stand() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethod(privateKey, getAccountNonce(address),8, 0);
@@ -194,7 +194,7 @@ public class MainController {
     }
 
     @PostMapping(params = "action=placeBet")
-    public String placeBet(@RequestParam("bet") double bet) throws InterruptedException {
+    public String placeBet(@RequestParam("bet") double bet) {
         httpSession.setAttribute("cardMap", getCardMap());
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
@@ -230,13 +230,9 @@ public class MainController {
         return map;
     }
 
-    private long getAccountNonce(String address) throws InterruptedException {
+    private long getAccountNonce(String address) {
         HashMap<String, Object> accountMap = transactionUtil.getAccountBalance(address);
-        while (accountMap.isEmpty()){
-            Thread.sleep(100L);
-            accountMap = transactionUtil.getAccountBalance(address);
-        }
-        return (long) accountMap.get("nextNonce");
+        return (long) (int) accountMap.get("nextNonce");
     }
 
 }
