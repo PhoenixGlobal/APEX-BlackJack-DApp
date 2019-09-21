@@ -45,12 +45,13 @@ public class MainController {
         model.addAttribute("balancePlayer", transactionUtil.getAccountBalance(address));
         model.addAttribute("balanceContract", 0);
 
-        final String tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
+        String tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
         HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
             Thread.sleep(1000L);
             log.info("Table not there yet");
-            log.info((String) displayTableMap.get("error"));
+            log.info(displayTableMap.toString());
+            tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
             displayTableMap = transactionUtil.getTxById(tableTxId);
         }
         String tableEncoded = (String) displayTableMap.get("output");
