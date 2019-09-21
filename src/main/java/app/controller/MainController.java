@@ -48,7 +48,7 @@ public class MainController {
         final String tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
         HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
-            Thread.sleep(200L);
+            Thread.sleep(1000L);
             log.info("Table not there yet");
             displayTableMap = transactionUtil.getTxById(tableTxId);
         }
