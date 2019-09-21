@@ -49,10 +49,8 @@ public class MainController {
         HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
             Thread.sleep(500L);
-            log.info("Table not there yet: " + tableTxId);
             displayTableMap = transactionUtil.getTxById(tableTxId);
         }
-        log.info(displayTableMap.toString());
         String tableEncoded = (String) displayTableMap.get("output");
         String msg = "Welcome to APEX BlackJack";
 
