@@ -40,7 +40,9 @@ public class TransactionUtil {
     public HashMap<String, Object> executeMethod(ECPrivateKey privateKey, long nonce , int abiIndex, double amount) {
         try {
             final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
+            log.info(String.valueOf(payContractSignature.length));
             final HashMap<String, Object> resultMap = executeTransaction(privateKey, nonce, TransactionType.CALL, amount, payContractSignature);
+            log.info(resultMap.toString());
             final String txId = (String) resultMap.get("txId");
             final GetContractByIdCmd cmd = new GetContractByIdCmd(txId);
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
