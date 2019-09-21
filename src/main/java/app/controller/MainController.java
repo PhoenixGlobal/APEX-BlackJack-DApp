@@ -26,8 +26,7 @@ public class MainController {
     @Autowired
     private HttpSession httpSession;
 
-    @Autowired
-    private TransactionUtil transactionUtil;
+    private TransactionUtil transactionUtil = new TransactionUtil();
 
     @GetMapping
     public String indexPage(Model model) throws Exception {

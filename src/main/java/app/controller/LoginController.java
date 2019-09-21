@@ -30,8 +30,7 @@ public class LoginController {
     @Autowired
     private CryptoService cryptoService;
 
-    @Autowired
-    private TransactionUtil transactionUtil;
+    private TransactionUtil transactionUtil = new TransactionUtil();
 
     @GetMapping
     public String startPageGet() {

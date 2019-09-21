@@ -20,7 +20,6 @@ import java.security.interfaces.ECPrivateKey;
 import java.time.Instant;
 import java.util.HashMap;
 
-@Service
 public class TransactionUtil {
 
     private GenericJacksonWriter writer = new GenericJacksonWriter();

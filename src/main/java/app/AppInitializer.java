@@ -19,12 +19,6 @@ public class AppInitializer extends SpringBootServletInitializer {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public TransactionUtil getTransactionUtil(){
-        return new TransactionUtil();
-    }
-
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public CryptoService getCryptoService(){
         return new CryptoService();
     }
