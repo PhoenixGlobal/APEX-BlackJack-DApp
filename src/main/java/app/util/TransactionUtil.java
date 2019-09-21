@@ -46,7 +46,8 @@ public class TransactionUtil {
     public String executeMethodRetryOnFail(ECPrivateKey privateKey, String address , int abiIndex, double amount) throws InterruptedException {
         final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
         final ExecResult execResult = executeTransaction(privateKey, address, TransactionType.CALL, amount, payContractSignature);
-        if(!execResult.isSucceed()) {
+        log.info(String.valueOf(execResult.getStatus()));
+        if(!execResult.isSucceed() || execResult.getStatus() == 0) {
             Thread.sleep(200L);
             executeMethodRetryOnFail(privateKey, address, abiIndex, amount);
         }
