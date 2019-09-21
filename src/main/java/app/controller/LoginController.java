@@ -62,12 +62,13 @@ public class LoginController {
 
     private long getAccountNonce(String address) throws InterruptedException {
         HashMap<String, Object> accountMap = transactionUtil.getAccountBalance(address);
+        log.info(accountMap.toString());
         while (accountMap.isEmpty()){
             Thread.sleep(100L);
             accountMap = transactionUtil.getAccountBalance(address);
         }
-        log.info(String.valueOf((long) accountMap.get("nextNonce")));
-        return (long) accountMap.get("nextNonce");
+        log.info(String.valueOf((int) accountMap.get("nextNonce")));
+        return (long) (int) accountMap.get("nextNonce");
     }
 
 }
