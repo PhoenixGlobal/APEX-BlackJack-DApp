@@ -3,6 +3,8 @@ package app.controller;
 import app.App;
 import app.util.TransactionUtil;
 import org.apache.commons.codec.binary.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/game")
 public class MainController {
+
+    private Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private HttpSession httpSession;
@@ -151,6 +155,7 @@ public class MainController {
 
             httpSession.setAttribute("cardMap", cardMap);
         } catch (IndexOutOfBoundsException e){
+            log.error(e.getMessage());
             model.addAttribute("msg", msg);
         }
 

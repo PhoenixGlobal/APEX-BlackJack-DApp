@@ -3,6 +3,8 @@ package app.controller;
 import app.util.TransactionUtil;
 import crypto.CPXKey;
 import crypto.CryptoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 public class LoginController {
 
     private static final int SESSION_EXP_SEC = 1800;
+
+    private Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private HttpSession httpSession;
@@ -51,6 +55,7 @@ public class LoginController {
             httpSession.setMaxInactiveInterval(SESSION_EXP_SEC);
             return "redirect:/game";
         } catch (Exception e){
+            log.error(e.getMessage());
             return "redirect:/";
         }
     }
