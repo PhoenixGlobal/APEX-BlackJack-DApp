@@ -43,20 +43,6 @@ public class TransactionUtil {
         return (String) execResult.getResult().get("txId");
     }
 
-    public String executeMethodRetryOnFail(ECPrivateKey privateKey, String address , int abiIndex, double amount) throws InterruptedException {
-        final byte[] payContractSignature = Abi.fromJson(App.getContractAbi()).get(abiIndex).fingerprintSignature();
-        Thread.sleep(2000L);
-        final ExecResult execResult = executeTransaction(privateKey, address, TransactionType.CALL, amount, payContractSignature);
-        log.info(execResult.getResult().toString());
-        if(execResult.getResult().containsKey("error")) {
-            if (execResult.getResult().get("error") != null || !execResult.getResult().get("error").equals("")) {
-                Thread.sleep(200L);
-                executeMethodRetryOnFail(privateKey, address, abiIndex, amount);
-            }
-        }
-        return (String) execResult.getResult().get("txId");
-    }
-
     public String executeMethodWithParameters(ECPrivateKey privateKey, String address , int abiIndex, double amount, double param) {
         final Abi.Function c = (Abi.Function) Abi.fromJson(App.getContractAbi()).get(abiIndex);
         final byte [] params = c.encode(new FixedNumber(param).getValue());
@@ -91,6 +77,7 @@ public class TransactionUtil {
                     .build();
             final SendRawTransactionCmd cmd = new SendRawTransactionCmd(tx.getBytes(crypto, privateKey));
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
+            Thread.sleep(2000L);
             return writer.getObjectFromString(ExecResult.class, response);
         } catch (Exception e){
             log.error(e.getMessage());

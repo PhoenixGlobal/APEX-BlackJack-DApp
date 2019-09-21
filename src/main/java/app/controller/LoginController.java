@@ -49,7 +49,6 @@ public class LoginController {
             }
             final String address = CPXKey.getPublicAddressCPX(privateKey);
             transactionUtil.executeMethod(privateKey, address, 6, 0L);
-            Thread.sleep(2000L);
             httpSession.setAttribute("address", address);
             httpSession.setAttribute("privateKey", privateKey);
             httpSession.setMaxInactiveInterval(SESSION_EXP_SEC);
