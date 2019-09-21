@@ -20,7 +20,7 @@ public class AppInitializer extends SpringBootServletInitializer {
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public TransactionUtil getTransactionUtil(){
         return new TransactionUtil();
     }
