@@ -236,7 +236,7 @@ public class MainController {
             Thread.sleep(100L);
             accountMap = transactionUtil.getAccountBalance(address);
         }
-        return (long) accountMap.get("nonce");
+        return (long) accountMap.get("nextNonce");
     }
 
 }
