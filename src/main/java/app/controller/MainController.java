@@ -42,16 +42,14 @@ public class MainController {
 
         model.addAttribute("addressPlayer", address);
         model.addAttribute("addressContract", App.getGameAddress());
-        HashMap<String, Object> accountMap = transactionUtil.getAccount(address);
-
         model.addAttribute("balancePlayer", transactionUtil.getAccountBalance(address));
         model.addAttribute("balanceContract", 0);
 
         final String tableTxId = transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
         HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
-        log.info(displayTableMap.toString());
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
-            Thread.sleep(100L);
+            Thread.sleep(200L);
+            log.info("Table not there yet");
             displayTableMap = transactionUtil.getTxById(tableTxId);
         }
         String tableEncoded = (String) displayTableMap.get("output");
@@ -165,6 +163,7 @@ public class MainController {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 4, amount);
+        log.info("Cash In called");
         return "redirect:/game";
     }
 
