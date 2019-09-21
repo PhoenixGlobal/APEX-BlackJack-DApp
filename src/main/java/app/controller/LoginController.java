@@ -48,7 +48,7 @@ public class LoginController {
                 privateKey = cryptoService.getECPrivateKeyFromRawString(privateKeyString);
             }
             final String address = CPXKey.getPublicAddressCPX(privateKey);
-            transactionUtil.executeMethod(privateKey, getAccountNonce(address), 6, 0L);
+            transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 6, 0L);
             Thread.sleep(2000L);
             httpSession.setAttribute("address", address);
             httpSession.setAttribute("privateKey", privateKey);
@@ -58,11 +58,6 @@ public class LoginController {
             log.error(e.getMessage());
             return "redirect:/";
         }
-    }
-
-    private long getAccountNonce(String address) {
-        HashMap<String, Object> accountMap = transactionUtil.getAccountBalance(address);
-        return (long) (int) accountMap.get("nextNonce");
     }
 
 }

@@ -68,10 +68,11 @@ public class TransactionUtil {
         }
     }
 
-    public HashMap<String, Object> getAccountBalance(String address){
+    public HashMap<String, Object> getAccount(String address){
         try{
             final GetAccountCmd cmd = new GetAccountCmd(address);
             final String response = caller.postRequest(App.getRpcUrl(), cmd);
+            log.info(response);
             return writer.getObjectFromString(ExecResult.class, response).getResult();
         } catch (Exception e){
             log.error("In getAccountBalance(): " + e.getMessage());
@@ -100,6 +101,16 @@ public class TransactionUtil {
             log.error(e.getMessage());
             return new HashMap<>();
         }
+    }
+
+    public long getAccountNonce(String address) {
+        HashMap<String, Object> accountMap = getAccount(address);
+        return (long) (int) accountMap.get("nextNonce");
+    }
+
+    public String getAccountBalance(String address) {
+        HashMap<String, Object> accountMap = getAccount(address);
+        return (String) accountMap.get("balance");
     }
 
     public String cleanTextContent(String text) {

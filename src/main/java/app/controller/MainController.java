@@ -41,19 +41,15 @@ public class MainController {
 
         model.addAttribute("addressPlayer", address);
         model.addAttribute("addressContract", App.getGameAddress());
-        HashMap<String, Object> accountMap = transactionUtil.getAccountBalance(address);
-        while (accountMap.isEmpty()){
-            Thread.sleep(100L);
-            accountMap = transactionUtil.getAccountBalance(address);
-        }
+        HashMap<String, Object> accountMap = transactionUtil.getAccount(address);
 
-        model.addAttribute("balancePlayer", accountMap.get("balance"));
+        model.addAttribute("balancePlayer", transactionUtil.getAccountBalance(address));
         model.addAttribute("balanceContract", 0);
 
-        HashMap<String, Object> displayTableMap =  transactionUtil.executeMethod(privateKey, (long) accountMap.get("nonce"), 10, 0L);
+        HashMap<String, Object> displayTableMap =  transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0);
         while(displayTableMap.isEmpty() || displayTableMap.get("output").equals("") || displayTableMap.get("output") == null){
             Thread.sleep(100L);
-            displayTableMap =  transactionUtil.executeMethod(privateKey, (long) accountMap.get("nonce"), 10, 0L);
+            displayTableMap =  transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 10, 0L);
         }
         String tableEncoded = (String) displayTableMap.get("output");
         String msg = "Welcome to APEX BlackJack";
@@ -165,7 +161,7 @@ public class MainController {
     public String cashIn(@RequestParam("amount") double amount) {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, getAccountNonce(address), 4, amount);
+        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 4, amount);
         return "redirect:/game";
     }
 
@@ -173,7 +169,7 @@ public class MainController {
     public String cashOut() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, getAccountNonce(address), 0, 0);
+        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 0, 0);
         return "redirect:/game";
     }
 
@@ -181,7 +177,7 @@ public class MainController {
     public String hit() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, getAccountNonce(address), 2, 0);
+        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address), 2, 0);
         return "redirect:/game";
     }
 
@@ -189,7 +185,7 @@ public class MainController {
     public String stand() {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethod(privateKey, getAccountNonce(address),8, 0);
+        transactionUtil.executeMethod(privateKey, transactionUtil.getAccountNonce(address),8, 0);
         return "redirect:/game";
     }
 
@@ -198,7 +194,7 @@ public class MainController {
         httpSession.setAttribute("cardMap", getCardMap());
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
-        transactionUtil.executeMethodWithParameters(privateKey, getAccountNonce(address), 5, 0, bet);
+        transactionUtil.executeMethodWithParameters(privateKey, transactionUtil.getAccountNonce(address), 5, 0, bet);
         return "redirect:/game";
     }
 
@@ -228,11 +224,6 @@ public class MainController {
         listAce.add("svg-cards/1s.svg");
         map.put(11, listAce);
         return map;
-    }
-
-    private long getAccountNonce(String address) {
-        HashMap<String, Object> accountMap = transactionUtil.getAccountBalance(address);
-        return (long) (int) accountMap.get("nextNonce");
     }
 
 }
