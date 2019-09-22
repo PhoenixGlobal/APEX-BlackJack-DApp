@@ -44,6 +44,7 @@ public class MainController {
         model.addAttribute("addressContract", App.getGameAddress());
         model.addAttribute("balancePlayer", transactionUtil.getAccountBalance(address));
         model.addAttribute("balanceContract", 0);
+        model.addAttribute("currentPot", 0);
 
         String tableTxId = transactionUtil.executeMethod(privateKey, address, 10, 0);
         HashMap<String, Object> displayTableMap =  transactionUtil.getTxById(tableTxId);
@@ -65,6 +66,7 @@ public class MainController {
                 tableValues.add(tableEncoded.substring(0, 64));
                 tableEncoded = tableEncoded.substring(64);
             }
+
             model.addAttribute("currentPot", new BigInteger(tableValues.get(1), 16)
                     .divide(BigDecimal.valueOf(1000000000000000000L).toBigInteger()));
 
