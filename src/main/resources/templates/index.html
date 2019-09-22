@@ -12,6 +12,8 @@
 </head>
 
 <body>
+<section id="cover">
+    <div id="cover-caption">
 <div class="container-scroller d-flex align-items-center" style="background: #222">
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     </nav>
@@ -152,7 +154,7 @@
                                     <button th:disabled="${msg.contains('Pay contract')}" type="submit" name="action" value="showCards" class="btn btn-danger btn-block">Show Cards</button>
                                 </span>
                                 <span class="input-group-btn" style="margin-left: 15px;">
-                                    <button th:disabled="not ${msg.contains('Player turn')}" type="submit" name="action" value="hit" class="btn btn-danger btn-block">Hit</button>
+                                    <button th:disabled="(not ${msg.contains('Player turn')}) or (${session.playerCardNext} ne 'svg-cards/back.svg')" type="submit" name="action" value="hit" class="btn btn-danger btn-block">Hit</button>
                                 </span>
                                 <span class="input-group-btn" style="margin-left: 15px;">
                                     <button th:disabled="not ${msg.contains('Player turn')}" type="submit" name="action" value="stand" class="btn btn-danger btn-block">Stand</button>
@@ -175,11 +177,31 @@
     <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
+    </div>
+</section>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
+
+<style>
+    html,
+    body{
+        height: 100%;
+    }
+    #cover {
+        background: #222 center center no-repeat;
+        background-size: cover;
+        height: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+    }
+    #cover-caption {
+        width: 100%;
+    }
+</style>
 
 </html>
