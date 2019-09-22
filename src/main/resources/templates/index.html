@@ -51,16 +51,16 @@
         <div class="jumbotron jumbotron-fluid d-flex align-items-center" id="game">
             <div class="container">
                 <div class="row">
+                    <div class="col-1"></div>
                     <div class="col-1">
                         <h5 th:text="'Pot: ' + ${currentPot}" style="color: white"></h5>
                     </div>
                     <div class="col-1"></div>
-                    <div class="col-1"></div>
                     <div class="col-1">
-                        <img class="img-responsive" th:src="${session.dealerCard1}">
+                        <img class="img-fluid" th:src="${session.dealerCard1}">
                     </div>
                     <div class="col-1">
-                        <img class="img-responsive" th:src="${session.dealerCard2}">
+                        <img class="img-fluid" th:src="${session.dealerCard2}">
                     </div>
                     <div class="col-1">
                         <img class="img-fluid" th:if="${session.dealerCardNext1} ne 'svg-cards/back.svg'" th:src="${session.dealerCardNext1}">
