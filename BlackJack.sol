@@ -194,13 +194,11 @@ contract BlackJack {
     returns (string memory) {
 
         uint256 tempBalance = 0;
-
-        safeBalanceMap[msg.sender] = 0;
-        tempBalance = origBalanceMap[msg.sender];
         origBalanceMap[msg.sender] = 0;
+        tempBalance = safeBalanceMap[msg.sender];
+        safeBalanceMap[msg.sender] = 0;
 
         address(msg.sender).transfer(tempBalance);
-
         dMsgMap[msg.sender] = "Cash out successful: Pay contract";
         return dMsgMap[msg.sender];
     }

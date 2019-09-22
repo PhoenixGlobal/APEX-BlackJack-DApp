@@ -161,7 +161,6 @@ public class MainController {
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");
         transactionUtil.executeMethod(privateKey, address, 4, amount);
-        log.info("Cash In called");
         return "redirect:/game";
     }
 
@@ -191,13 +190,13 @@ public class MainController {
 
     @PostMapping(params = "action=placeBet")
     public String placeBet(@RequestParam("bet") double bet) {
-        httpSession.setAttribute("playerCard1", null);
-        httpSession.setAttribute("playerCard2", null);
-        httpSession.setAttribute("playerCardNext", null);
-        httpSession.setAttribute("dealerCard1", null);
-        httpSession.setAttribute("dealerCard2", null);
-        httpSession.setAttribute("dealerCardNext1", null);
-        httpSession.setAttribute("dealerCardNext2", null);
+        httpSession.setAttribute("playerCard1", "svg-cards/back.svg");
+        httpSession.setAttribute("playerCard2", "svg-cards/back.svg");
+        httpSession.setAttribute("playerCardNext", "svg-cards/back.svg");
+        httpSession.setAttribute("dealerCard1", "svg-cards/back.svg");
+        httpSession.setAttribute("dealerCard2", "svg-cards/back.svg");
+        httpSession.setAttribute("dealerCardNext1", "svg-cards/back.svg");
+        httpSession.setAttribute("dealerCardNext2", "svg-cards/back.svg");
         httpSession.setAttribute("cardMap", transactionUtil.getCardMap());
         final String address = (String) httpSession.getAttribute("address");
         final ECPrivateKey privateKey = (ECPrivateKey) httpSession.getAttribute("privateKey");

@@ -59,10 +59,10 @@
                         <img class="img-fluid" th:src="${session.dealerCard2}">
                     </div>
                     <div class="col-1">
-                        <img class="img-fluid" th:src="${session.dealerCardNext1}">
+                        <img class="img-fluid" th:if="${session.dealerCardNext1} ne 'svg-cards/back.svg'" th:src="${session.dealerCardNext1}">
                     </div>
                     <div class="col-1">
-                        <img class="img-fluid" th:src="${session.dealerCardNext2}">
+                        <img class="img-fluid" th:if="${session.dealerCardNext2} ne 'svg-cards/back.svg'" th:src="${session.dealerCardNext2}">
                     </div>
                 </div>
                 <div class="row">
@@ -94,7 +94,7 @@
                         <img class="img-fluid" th:src="${session.playerCard2}">
                     </div>
                     <div class="col-1">
-                        <img class="img-fluid" th:src="${session.playerCardNext}">
+                        <img class="img-fluid" th:if="${session.playerCardNext} ne 'svg-cards/back.svg'" th:src="${session.playerCardNext}">
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -158,7 +158,7 @@
                                     <button th:disabled="not ${msg.contains('Player turn')}" type="submit" name="action" value="stand" class="btn btn-danger btn-block">Stand</button>
                                 </span>
                                 <div class="input-group" style="margin-left: 15px;">
-                                    <input type="number" id="bet" name="bet" min="1" th:max="${balancePlayer}">
+                                    <input type="number" id="bet" name="bet" min="1" th:max="${balanceContract}">
                                     <span class="input-group-btn">
                                         <button th:disabled="not ${msg.contains('Place bet')}" type="submit" name="action" value="placeBet" class="btn btn-danger btn-block">Bet</button>
                                     </span>
