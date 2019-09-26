@@ -11,7 +11,7 @@ RUN     apt-get update -y && \
         apt-get install wget -y && \
         apt-get install maven -y
 
-RUN     git clone https://github.com/yuomii/bj-dapp.git && \
+RUN     git clone https://github.com/APEX-Network/APEX-BlackJack-DApp.git && \
         cd bj-dapp && \
         mvn -U clean install && \
         cp target/bj-dapp-1.0-SNAPSHOT.jar /dapp/app.jar && \

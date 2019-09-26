@@ -10,7 +10,7 @@ services:
     image: dapp-container
     container_name: dapp-container
     ports:
-      - 8085:8085
+      - 80:80
     networks:
       dapp_net:
         ipv4_address: 172.29.1.1
