@@ -8,7 +8,7 @@ This is the first implementation of a DApp PoC on the Apex chain.
 * A Docker setup to test it out locally if needed
 
 #### Live version URL:
-TBA
+blackjack.apexnetwork.io
 
 #### Smart contract address:
-TBA
+AP358irjT9kUrtaY5QChTjb4CvfdPp2YPAi
