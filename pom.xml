@@ -21,7 +21,7 @@
         <project.encoding>UTF-8</project.encoding>
         <nitrite.version>3.2.0</nitrite.version>
         <apex.sdk.version>91f87c9ada9a5d65d6ef81db8c840ead7e948545</apex.sdk.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.15.0</jackson.version>
     </properties>
 
     <repositories>
